@@ -24,6 +24,9 @@ from sklearn.metrics import (
     confusion_matrix,
     balanced_accuracy_score
 )
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ==============================
 # 1. INPUT FEATURES
@@ -53,7 +56,7 @@ TARGET = "stress_risk_level"
 # 2. LOAD DATA
 # ==============================
 
-df = pd.read_csv("crop_stress_dataset.csv")
+df = pd.read_csv(os.path.join(BASE_DIR, "crop_stress_dataset.csv"))
 
 X = df[FEATURES]
 y = df[TARGET]
@@ -216,7 +219,7 @@ for i in range(len(cm)):
 
 plt.colorbar()
 plt.tight_layout()
-plt.savefig("confusion_matrix.png")
+plt.savefig(os.path.join(BASE_DIR, "confusion_matrix.png"))
 plt.show()
 
 # ==============================
@@ -266,7 +269,7 @@ joblib.dump({
     "macro_f1": f1_macro,
     "weighted_f1": f1_weighted,
     "best_params": grid_search.best_params_
-}, "crop_stress_model.pkl")
+},  os.path.join(BASE_DIR, "crop_stress_model.pkl"))
 
 print("\n====================================")
 print("Training completed successfully!")

@@ -1,3 +1,4 @@
+import os
 import joblib
 import pandas as pd
 
@@ -7,7 +8,8 @@ from pydantic import BaseModel
 app = FastAPI(title="KSHETRA Crop Stress Prediction")
 
 # Load single pickle file
-bundle = joblib.load("crop_stress_model.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+bundle = joblib.load(os.path.join(BASE_DIR, "crop_stress_model.pkl"))
 
 model = bundle["model"]
 FEATURES = bundle["features"]
